@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class BookServiceImpl implements BookService {
 	private BookMapper bookMapper;
 	
 	@WebMethod
-	public boolean save(@WebParam(partName="book") Book book) {
+	@WebResult(name="boolean1",partName="boolean2")
+	public boolean save(Book book) {
 		try{
 			bookMapper.save(book);
 			System.out.println("ws-server: save()");
@@ -45,7 +47,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@WebMethod
-	public boolean update(@WebParam Book book) {
+	public boolean update(Book book) {
 		try{
 			bookMapper.update(book);
 			System.out.println("ws-server: update()");
