@@ -24,7 +24,6 @@ public class BookServiceImpl implements BookService {
 	private BookMapper bookMapper;
 	
 	@WebMethod
-	@WebResult(name="boolean1",partName="boolean2")
 	public boolean save(Book book) {
 		try{
 			bookMapper.save(book);
