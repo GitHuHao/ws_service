@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<!-- 基于扫描识别mapper.xml 和 interface 创建dao层扩展的动态代理对象 -->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- <property name="sqlSessionFactory" ref="sessionFactory" /> -->
+		<!-- 将上述sqlSessionFactory 改为 sqlSessionFactoryBeanName,ref改为value 基于保证在读取db.properties后,创建session-->
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory" />
+		<property name="basePackage" value="com.atguigu.ws.mapper" />
+	</bean>
+
+</beans>

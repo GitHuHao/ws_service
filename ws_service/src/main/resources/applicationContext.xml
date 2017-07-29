@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+	<import resource="mybatisContext.xml"/>
+	<import resource="cxfContext.xml"/>
+
+	<!-- 导入数据源配置文件 -->
+	<context:property-placeholder location="classpath*:db.properties" />
+
+	<!-- 设置扫描包:1自动注册@Controller@Service@Repository@Component 标记的javaBean;2:自动完成@Resource@Autowired@PostConstruct 
+		属性装配 -->
+	<context:component-scan base-package="com.atguigu.ws" />
+
+	<!-- 注册数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" /> 
+	</bean>
+
+	<!-- 注册sessionFactory:保留hbm.xml映射文件 -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.atguigu.ws.domain" />
+	</bean>
+
+	<!-- 基于扫描识别mapper.xml 和 interface 创建dao层扩展的动态代理对象 -->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- <property name="sqlSessionFactory" ref="sessionFactory" /> -->
+		<!-- 将上述sqlSessionFactory 改为 sqlSessionFactoryBeanName,ref改为value 基于保证在读取db.properties后,创建session-->
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory" />
+		<property name="basePackage" value="com.atguigu.ws.mapper" />
+	</bean>
+
+	<!--注册事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 开启事务注解驱动@Transactional -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>
