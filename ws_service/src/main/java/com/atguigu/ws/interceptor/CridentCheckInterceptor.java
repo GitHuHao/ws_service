@@ -1,7 +1,6 @@
 package com.atguigu.ws.interceptor;
 
 import javax.xml.namespace.QName;
-
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;

@@ -12,11 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.atguigu.ws.interceptor.CridentCheckInterceptor;
 import com.atguigu.ws.service.BookService;
 
-public class PublishHandly {
+public class PublishByEndpoint {
 	
 	// 服务发布需要阻塞监听,因此不得使用@Test测试类
 	public static void main(String[] args) {
-		ApplicationContext ioc = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
+		ApplicationContext ioc = new ClassPathXmlApplicationContext("classpath*:applicationContext4HandlyPublish.xml");
 		
 		String address = "http://127.0.0.1:8080/ws_service/BookService_WS";
 		
@@ -35,7 +35,7 @@ public class PublishHandly {
 		// 服务端在入口添加身份校验拦截器,客户端在出口添加追加身份认证信息的拦截器
 		inInterceptors.add(new CridentCheckInterceptor());
 		
-		System.out.println("http://127.0.0.1:8080/ws_service/ws?wsdl 发布成功");
+		System.out.println(address+"?wsdl 发布成功");
 		
 	}
 	
