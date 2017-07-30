@@ -33,18 +33,22 @@ public class CridentCheckInterceptor extends AbstractPhaseInterceptor<SoapMessag
 	 * </Envelop>
 	 * */
 	public void handleMessage(SoapMessage message) throws Fault {
-		// 1.提取指定请求头,并获取需要的元素信息
-		Header header =message.getHeader(new QName("crident"));
-		Element cridentElem = (Element)header.getObject();
+		try{
+			// 1.提取指定请求头,并获取需要的元素信息
+			Header header =message.getHeader(new QName("crident"));
+			Element cridentElem = (Element)header.getObject();
 		
-		// 2. 解析Element节点
-		String username = cridentElem.getElementsByTagName("username").item(0).getTextContent();
-		String password = cridentElem.getElementsByTagName("password").item(0).getTextContent();
+			// 2. 解析Element节点
+			String username = cridentElem.getElementsByTagName("username").item(0).getTextContent();
+			String password = cridentElem.getElementsByTagName("password").item(0).getTextContent();
 		
-		// 3. 身份校验
-		if("tom".equals(username)&&"cat".equals(password)){
-			logger.info("ws-service CridentCheckInterceptor done.");
-		}else{
+			// 3. 身份校验
+			if("tom".equals(username)&&"cat".equals(password)){
+				logger.info("ws-service CridentCheckInterceptor done.");
+			}else{
+				throw new RuntimeException(); // 认证不通过
+			}
+		}catch(Exception e){ // 认证信息不全,均触发异常
 			logger.error("ws-service CridentCheckInterceptor failed.");
 			throw new Fault(new RuntimeException("需要正确的用户名和密码"));
 		}

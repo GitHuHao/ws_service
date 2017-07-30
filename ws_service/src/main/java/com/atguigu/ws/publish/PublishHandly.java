@@ -18,7 +18,7 @@ public class PublishHandly {
 	public static void main(String[] args) {
 		ApplicationContext ioc = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
 		
-		String address = "http://127.0.0.1:8080/ws_service/BookService_WS";
+		String address = "http://127.0.0.1:8080/ws_service/ws";
 		
 		BookService bookService =(BookService) ioc.getBean(BookService.class);
 		// 1.服务端在服务发布后才能往生效的终端装配拦截器,客户端则需要在调用前就装配拦截器
