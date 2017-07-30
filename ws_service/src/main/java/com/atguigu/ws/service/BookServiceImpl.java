@@ -17,7 +17,7 @@ import com.atguigu.ws.mapper.BookMapper;
 
 @WebService
 @Service("bookService")@Transactional
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl {
 	
 	private BookMapper bookMapper;
 	
