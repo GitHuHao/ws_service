@@ -1,9 +1,13 @@
 package com.atguigu.ws.publish;
 
 import javax.xml.ws.Endpoint;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.atguigu.ws.mapper.BookMapper;
 import com.atguigu.ws.service.BookService;
+import com.atguigu.ws.service.BookServiceImpl;
 
 public class PublishHandly {
 	
@@ -13,7 +17,12 @@ public class PublishHandly {
 		
 		String address = "http://127.0.0.1:8080/ws_service/ws";
 		
-		BookService bookService =(BookService) ioc.getBean(BookService.class);
+		BookMapper bookMapper =(BookMapper)ioc.getBean("bookMapper");
+		
+		BookServiceImpl bookService = new BookServiceImpl();
+		
+		bookService.setBookMapper(bookMapper);
+		
 		// 1.服务端在服务发布后才能往生效的终端装配拦截器,客户端则需要在调用前就装配拦截器
 		Endpoint endpoint = Endpoint.publish(address,bookService);
 		

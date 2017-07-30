@@ -13,5 +13,5 @@ public interface BookService {
 	boolean update(Book book);
 	Book getById(int id);
 	List<Book> getAll();
-	Map<Integer,Book> getMap();
+	//Map<Integer,Book> getMap();
 }

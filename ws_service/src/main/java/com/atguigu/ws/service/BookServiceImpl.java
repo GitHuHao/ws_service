@@ -66,7 +66,7 @@ public class BookServiceImpl implements BookService {
 		return bookMapper.getAll();
 	}
 
-	@WebMethod
+	/*@WebMethod
 	public Map<Integer, Book> getMap() {
 		Map<Integer,Book> map = new HashMap<>();
 		List<Book> books = bookMapper.getAll();
@@ -75,9 +75,10 @@ public class BookServiceImpl implements BookService {
 		}
 		System.out.println("ws-server: getMap()");
 		return map;
+	}*/
+	
+	@WebMethod(exclude=true) //如果使用setter注入,必须使用前面的注解,即,将次方法排除在发布之外
+	public void setBookMapper(BookMapper bookMapper) {
+		this.bookMapper = bookMapper;
 	}
-//	@WebMethod(exclude=true) //如果使用setter注入,必须使用前面的注解,即,将次方法排除在发布之外
-//	public void setBookMapper(BookMapper bookMapper) {
-//		this.bookMapper = bookMapper;
-//	}
 }
