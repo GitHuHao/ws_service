@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.atguigu.ws.interceptor.CridentCheckInterceptor;
 import com.atguigu.ws.service.BookService;
 
-public class PublishHandly {
+public class PublishEndpoint {
 	
 	// 服务发布需要阻塞监听,因此不得使用@Test测试类
 	public static void main(String[] args) {
