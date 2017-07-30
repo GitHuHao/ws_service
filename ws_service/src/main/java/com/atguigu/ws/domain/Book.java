@@ -2,6 +2,8 @@ package com.atguigu.ws.domain;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement(name="_book_")
 public class Book implements Serializable{
 
 	private int id;
@@ -10,6 +12,13 @@ public class Book implements Serializable{
 	
 	public Book(String title, double price) {
 		super();
+		this.title = title;
+		this.price = price;
+	}
+	
+	public Book(int id, String title, double price) {
+		super();
+		this.id = id;
 		this.title = title;
 		this.price = price;
 	}
