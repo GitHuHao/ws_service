@@ -6,7 +6,9 @@ import java.util.Map;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebParam.Mode;
 import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.atguigu.ws.domain.Book;
 import com.atguigu.ws.mapper.BookMapper;
 
-@WebService
+@WebService(name="myName",portName="myPortName",serviceName="myServiceName",
+	endpointInterface="com.atguigu.ws.service.BookService",targetNamespace="myTarget")
 @Service("bookService")@Transactional
 public class BookServiceImpl implements BookService {
 	
@@ -23,7 +26,7 @@ public class BookServiceImpl implements BookService {
 	private BookMapper bookMapper;
 	
 	@WebMethod
-	public boolean save(@WebParam(partName="book") Book book) {
+	public boolean save(@XmlElement(required=true)@WebParam(name="bookName") Book book) {
 		try{
 			bookMapper.save(book);
 			System.out.println("ws-server: save()");

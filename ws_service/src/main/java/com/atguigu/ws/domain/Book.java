@@ -2,6 +2,9 @@ package com.atguigu.ws.domain;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement(name="_book_")
 public class Book implements Serializable{
 
 	private int id;
@@ -17,6 +20,7 @@ public class Book implements Serializable{
 	public Book() {
 		super();
 	}
+	@XmlElement(name="_id_")
 	public int getId() {
 		return id;
 	}
