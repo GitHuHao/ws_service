@@ -19,7 +19,6 @@ import com.atguigu.ws.mapper.BookMapper;
 @Service("bookService")@Transactional
 public class BookServiceImpl implements BookService {
 	
-	@Autowired
 	private BookMapper bookMapper;
 	
 	@WebMethod
@@ -65,17 +64,6 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getAll() {
 		return bookMapper.getAll();
 	}
-
-	/*@WebMethod
-	public Map<Integer, Book> getMap() {
-		Map<Integer,Book> map = new HashMap<>();
-		List<Book> books = bookMapper.getAll();
-		for(Book book:books){
-			map.put(book.getId(), book);
-		}
-		System.out.println("ws-server: getMap()");
-		return map;
-	}*/
 	
 	@WebMethod(exclude=true) //如果使用setter注入,必须使用前面的注解,即,将次方法排除在发布之外
 	public void setBookMapper(BookMapper bookMapper) {
